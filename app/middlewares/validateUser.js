@@ -1,6 +1,9 @@
-const { check, body } = require('express-validator');
+const { body } = require('express-validator');
 
 module.exports = [
+  body('password')
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 chars long'),
   body('email')
     .isEmail()
     .withMessage('Email not Valid'),
@@ -10,8 +13,5 @@ module.exports = [
       throw new Error('Email not belongs to Domain WOLOX');
     }
     return true;
-  }),
-  check('password')
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 chars long')
+  })
 ];
