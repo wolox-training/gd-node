@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    'users',
+    'User',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isAlphanumeric: true,
+          is: /^(?=.*[a-z])(?=.*[0-9])/gm,
           isLength: {
             min: 8,
             max: undefined
@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
+      tableName: 'users',
       timestamps: false
     }
   );
