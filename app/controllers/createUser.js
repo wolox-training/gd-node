@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
-const logger = require('../../app/logger');
 const { validationResult } = require('express-validator');
 const { User } = require('../models');
+const logger = require('../../app/logger');
 
 exports.createUser = (req, res) => {
   const errors = validationResult(req);
