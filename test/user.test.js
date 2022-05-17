@@ -3,10 +3,13 @@ const usersFactory = require('./factory/user');
 
 describe('Testing Endpoint User /POST', () => {
   describe('', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       jest.clearAllMocks();
+      await usersFactory.create();
     });
-
+    afterEach(async () => {
+      await usersFactory.cleanUp();
+    });
     test('User creation succesy', async () => {
       const userToTest = {
         first_name: 'Tom',
@@ -25,8 +28,6 @@ describe('Testing Endpoint User /POST', () => {
         email: 'Tom.Lee@wolox.com',
         password: '12345rE8'
       };
-      const newUser = await usersFactory.create();
-      console.log(newUser);
       const result = await repository.store(userToTest);
       expect(result[1]).toBe(false);
     });
