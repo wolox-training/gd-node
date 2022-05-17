@@ -20,6 +20,21 @@ const store = async userToCreate => {
   }
 };
 
+const getOne = async userToFind => {
+  try {
+    const result = await User.findOne({
+      where: {
+        email: userToFind.email
+      },
+      attributes: ['email']
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
-  store
+  store,
+  getOne
 };
