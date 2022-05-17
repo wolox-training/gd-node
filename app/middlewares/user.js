@@ -1,5 +1,4 @@
-const { validationResult } = require('express-validator');
-const { checkSchema } = require('express-validator');
+const { checkSchema, validationResult } = require('express-validator');
 
 async function validateUser(req, res, next) {
   await checkSchema({
@@ -14,8 +13,7 @@ async function validateUser(req, res, next) {
     email: {
       notEmpty: true,
       errorMessage: 'Cannot be empty field',
-      isEmail: true,
-      errorMessage: 'Email format invalid'
+      isEmail: true
     },
     password: {
       isLength: {
