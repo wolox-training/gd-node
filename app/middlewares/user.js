@@ -11,9 +11,12 @@ async function validateUser(req, res, next) {
       errorMessage: 'Cannot be empty field'
     },
     email: {
-      notEmpty: true,
-      errorMessage: 'Cannot be empty field',
-      isEmail: true
+      notEmpty: {
+        negated: false,
+        errorMessage: 'Cannot be empty field'
+      },
+      isEmail: true,
+      errorMessage: 'Email should be valid format'
     },
     password: {
       isLength: {
@@ -30,7 +33,7 @@ async function validateUser(req, res, next) {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  next();
+  return next();
 }
 
 module.exports = {
