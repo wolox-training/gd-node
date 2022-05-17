@@ -6,7 +6,7 @@ module.exports = [
     .withMessage('Password must be at least 8 chars long'),
   body('email')
     .isEmail()
-    .withMessage('Email not Valid'),
+    .withMessage('Wrong Email format'),
   body('email').custom(value => {
     const splitted = value.split('@');
     if (splitted[1] !== 'wolox.com') {

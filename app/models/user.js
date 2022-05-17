@@ -29,10 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           is: /^(?=.*[a-z])(?=.*[0-9])/gm,
-          isLength: {
-            min: 8,
-            max: undefined
-          }
+          len: [8]
         }
       }
     },
