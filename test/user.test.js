@@ -30,6 +30,7 @@ describe('Testing Endpoint User /POST', () => {
       };
       await usersFactory.create();
       const result = await repository.store(userToTest);
+      console.log(result, '999');
       expect(result[1]).toBe(false);
     });
     test('User creation fail wrong password', async () => {
