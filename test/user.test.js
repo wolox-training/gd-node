@@ -4,13 +4,12 @@ const usersFactory = require('./factory/user');
 describe('Testing Endpoint User /POST', () => {
   describe('', () => {
     beforeEach(async () => {
-      jest.clearAllMocks();
-      await usersFactory.create();
+      await jest.clearAllMocks();
     });
     afterEach(async () => {
       await usersFactory.cleanUp();
     });
-    test('User creation succesy', async () => {
+    test.skip('User creation successfully', async () => {
       const userToTest = {
         first_name: 'Tom',
         last_name: 'Lee',
@@ -19,16 +18,29 @@ describe('Testing Endpoint User /POST', () => {
       };
       const result = await repository.store(userToTest);
       expect(result).toBeInstanceOf(Object);
+      expect(result[0]).toBe(true);
     });
-
-    test('User creation fail wrong E-mail', async () => {
+    test.skip('User creation fail mail in use', async () => {
       const userToTest = {
         first_name: 'Tom',
         last_name: 'Lee',
         email: 'Tom.Lee@wolox.com',
         password: '12345rE8'
       };
+      await usersFactory.create();
       const result = await repository.store(userToTest);
+      expect(result[1]).toBe(false);
+    });
+    test('User creation fail wrong password', async () => {
+      const userToTest = {
+        first_name: 'Tom',
+        last_name: 'Lee',
+        email: 'Tom.Lee@wolox.com',
+        password: '12345'
+      };
+      await usersFactory.create();
+      const result = await repository.store(userToTest);
+      console.log(result, '999');
       expect(result[1]).toBe(false);
     });
   });
