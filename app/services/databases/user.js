@@ -14,7 +14,6 @@ const store = async userToCreate => {
         password: bcrypt.hashSync(userToCreate.password, 10)
       }
     });
-    console.log('200');
     return [user, created];
   } catch (error) {
     return error;
