@@ -9,7 +9,7 @@ describe('Testing Endpoint User /POST', () => {
     afterEach(async () => {
       await usersFactory.cleanUp();
     });
-    test.skip('User creation successfully', async () => {
+    test('User creation successfully', async () => {
       const userToTest = {
         first_name: 'Tom',
         last_name: 'Lee',
@@ -17,10 +17,11 @@ describe('Testing Endpoint User /POST', () => {
         password: '12345rE8'
       };
       const result = await repository.store(userToTest);
+      console.log(result);
       expect(result).toBeInstanceOf(Object);
-      expect(result[0]).toBe(true);
+      expect(result[1]).toBe(true);
     });
-    test.skip('User creation fail mail in use', async () => {
+    test('User creation fail mail in use', async () => {
       const userToTest = {
         first_name: 'Tom',
         last_name: 'Lee',
@@ -40,8 +41,18 @@ describe('Testing Endpoint User /POST', () => {
       };
       await usersFactory.create();
       const result = await repository.store(userToTest);
-      console.log(result, '999');
       expect(result[1]).toBe(false);
+    });
+    test('User creation fail without parameter', async () => {
+      const userToTest = {
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: ''
+      };
+      await usersFactory.create();
+      const result = await repository.store(userToTest);
+      expect(result.errors).toBeInstanceOf(Array);
     });
   });
 });
