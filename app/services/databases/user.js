@@ -52,7 +52,9 @@ const getAll = async ({ offset, limit }) => {
       offset,
       limit
     });
-    return result;
+    const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
+    const userFounded = result && isSamePassword === true ? result.email : null;
+    return userFounded;
   } catch (error) {
     return error;
   }
