@@ -27,9 +27,12 @@ const getOne = async userToFind => {
         email: userToFind.email
       }
     });
-    const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
-    const userFounded = result && isSamePassword === true ? result.email : null;
-    return userFounded;
+    if (result) {
+      const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
+      const userFounded = result && isSamePassword === true ? result.email : null;
+      return userFounded;
+    }
+    return result;
   } catch (error) {
     return error;
   }
