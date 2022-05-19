@@ -15,8 +15,18 @@ async function validateUser(req, res, next) {
         negated: false,
         errorMessage: 'Cannot be empty field'
       },
-      isEmail: true,
-      errorMessage: 'Email should be valid format'
+      customSanitizer: {
+        options: value => {
+          const withDomain = value.split('@');
+          if (withDomain[1] === undefined) {
+            return 'Invalid email format';
+          } else if (withDomain[1] !== 'wolox.com') {
+            return 'Email not belongs to WOLOX';
+          }
+          return value;
+        }
+      },
+      isEmail: true
     },
     password: {
       isLength: {
