@@ -17,7 +17,6 @@ describe('Testing Endpoint User /POST', () => {
         password: '12345rE8'
       };
       const result = await repository.store(userToTest);
-      console.log(result);
       expect(result).toBeInstanceOf(Object);
       expect(result[1]).toBe(true);
     });

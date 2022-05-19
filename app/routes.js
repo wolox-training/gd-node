@@ -1,5 +1,5 @@
 const { healthCheck } = require('./controllers/healthCheck');
-const validateUser = require('./middlewares/user');
+const { validateUser } = require('./middlewares/user');
 const { createUser } = require('./controllers/user');
 
 exports.init = app => {

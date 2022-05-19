@@ -1,12 +1,7 @@
-const { validationResult } = require('express-validator');
 const repository = require('../services/databases/user');
 const logger = require('../logger');
 
 const createUser = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
   try {
     const result = await repository.store(req.body);
     if (result[1]) {
