@@ -34,21 +34,6 @@ const signIn = async (req, res) => {
   }
 };
 
-const signIn = async (req, res) => {
-  try {
-    const result = await repository.getOne(req.body);
-    if (result) {
-      logger.info('User found');
-      return res.status(200).json({ Message: 'User found', Data: result });
-    }
-    logger.error('Wrong email or password');
-    return res.status(400).json('Wrong email or password');
-  } catch (error) {
-    logger.error('Server Fail');
-    return res.status(500).json({ Message: 'Server Fail', Errors: error });
-  }
-};
-
 module.exports = {
   signUp,
   signIn
