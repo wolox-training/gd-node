@@ -46,7 +46,7 @@ const listAll = async (req, res) => {
   }
 };
 
-const findUser = async (req, res) => {
+const sign_in = async (req, res) => {
   try {
     const result = await repository.getOne(req.body);
     if (result) {
