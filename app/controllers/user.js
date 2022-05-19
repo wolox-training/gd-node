@@ -1,7 +1,7 @@
 const repository = require('../services/databases/user');
 const logger = require('../logger');
 
-const createUser = async (req, res) => {
+const sign_up = async (req, res) => {
   try {
     const result = await repository.store(req.body);
     if (result[1]) {
@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const findUser = async (req, res) => {
+const sign_in = async (req, res) => {
   try {
     const result = await repository.getOne(req.body);
     if (result) {
@@ -32,6 +32,6 @@ const findUser = async (req, res) => {
 };
 
 module.exports = {
-  createUser,
-  findUser
+  sign_up,
+  sign_in
 };

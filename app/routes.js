@@ -1,12 +1,12 @@
 const { healthCheck } = require('./controllers/healthCheck');
-const { validateUser } = require('./middlewares/user');
-const { createUser, findUser } = require('./controllers/user');
+const { validateSignUp, validateSignIn } = require('./middlewares/user');
+const { sign_up, sign_in } = require('./controllers/user');
 
 exports.init = app => {
   app.get('/health', healthCheck);
   // app.get('/endpoint/get/path', [], controller.methodGET);
   // app.put('/endpoint/put/path', [], controller.methodPUT);
   // app.post('/endpoint/post/path', [], controller.methodPOST);
-  app.post('/users', validateUser, createUser);
-  app.post('/users/sessions', findUser);
+  app.post('/users', validateSignUp, sign_up);
+  app.post('/users/sessions',validateSignIn , sign_in);
 };
