@@ -25,10 +25,11 @@ const getOne = async userToFind => {
     const result = await User.findOne({
       where: {
         email: userToFind.email
-      },
-      attributes: ['email']
+      }
     });
-    return result;
+    const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
+    const userFounded = result && isSamePassword === true ? result.email : null;
+    return userFounded;
   } catch (error) {
     return error;
   }
