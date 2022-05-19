@@ -1,3 +1,4 @@
+const { createToken } = require('../services/databases/internals/getToken');
 const repository = require('../services/databases/user');
 const logger = require('../logger');
 
@@ -20,8 +21,9 @@ const signIn = async (req, res) => {
   try {
     const result = await repository.getOne(req.body);
     if (result) {
+      const userToken = createToken(req.body);
       logger.info('User found');
-      return res.status(200).json({ Message: 'User found', Data: result });
+      return res.status(200).json({ Message: 'User found', Data: result, token: userToken });
     }
     logger.error('Wrong email or password');
     return res.status(400).json('Wrong email or password');
