@@ -20,6 +20,25 @@ const store = async userToCreate => {
   }
 };
 
+const getOne = async userToFind => {
+  try {
+    const result = await User.findOne({
+      where: {
+        email: userToFind.email
+      }
+    });
+    if (result) {
+      const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
+      const userFounded = result && isSamePassword === true ? result.email : null;
+      return userFounded;
+    }
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
-  store
+  store,
+  getOne
 };
