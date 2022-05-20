@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../app');
 const repository = require('../app/services/databases/user');
+const { userSignUpTest, userSignUpTestEmpty, userSignInTest } = require('../app/services/internals/fakeData');
 const usersFactory = require('./factory/user');
 
 describe('Testing Endpoint User', () => {
@@ -12,51 +13,23 @@ describe('Testing Endpoint User', () => {
       await usersFactory.cleanUp();
     });
     test('User creation successfully', async () => {
-      const userToTest = {
-        first_name: 'Tom',
-        last_name: 'Lee',
-        email: 'Tom.Lee@wolox.com',
-        password: '12345rE8',
-        role_id: 'regular'
-      };
-      const result = await repository.store(userToTest);
+      const result = await repository.store(userSignUpTest);
       expect(result).toBeInstanceOf(Object);
       expect(result[1]).toBe(true);
     });
     test('User creation fail mail in use', async () => {
-      const userToTest = {
-        first_name: 'Tom',
-        last_name: 'Lee',
-        email: 'Tom.Lee@wolox.com',
-        password: '12345rE8',
-        role_id: 'regular'
-      };
       await usersFactory.create();
-      const result = await repository.store(userToTest);
+      const result = await repository.store(userSignUpTest);
       expect(result[1]).toBe(false);
     });
     test('User creation fail wrong password', async () => {
-      const userToTest = {
-        first_name: 'Tom',
-        last_name: 'Lee',
-        email: 'Tom.Lee@wolox.com',
-        password: '12345rE8',
-        role_id: 'regular'
-      };
       await usersFactory.create();
-      const result = await repository.store(userToTest);
+      const result = await repository.store(userSignUpTest);
       expect(result[1]).toBe(false);
     });
     test('User creation fail without parameter', async () => {
-      const userToTest = {
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: '',
-        role_id: ''
-      };
       await usersFactory.create();
-      const result = await repository.store(userToTest);
+      const result = await repository.store(userSignUpTestEmpty);
       expect(result.errors).toBeInstanceOf(Array);
     });
   });
@@ -69,13 +42,9 @@ describe('Testing Endpoint User', () => {
       await usersFactory.cleanUp();
     });
     test('User login successfully', async () => {
-      const userToTest = {
-        email: 'Tom.Lee@wolox.com',
-        password: '12345rt8'
-      };
       await request(app)
         .post('/users/sessions')
-        .send(userToTest)
+        .send(userSignInTest)
         .then(response => {
           expect(response.body.email).toEqual('Tom.Lee@wolox.com');
           expect(response.statusCode).toBe(200);
@@ -134,7 +103,7 @@ describe('Testing Endpoint User', () => {
         .set(tokenToTest)
         .then(response => {
           expect(response.statusCode).toBe(400);
-          expect(response.text).toEqual('"token was not supplied"');
+          expect(response.text).toEqual('"Token was not supplied"');
         });
     });
   });
