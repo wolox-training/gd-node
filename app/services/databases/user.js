@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { query } = require('express');
 const { User } = require('../../models');
 
 const store = async userToCreate => {
@@ -38,7 +39,23 @@ const getOne = async userToFind => {
   }
 };
 
+const getAll = async pagination => {
+  try {
+    const queryDefault = { offset: 1, limit: 5 };
+    const query = Object.keys(pagination).length === 0 ? queryDefault : pagination;
+    const result = await User.findAll({
+      attributes: ['id', 'first_name', 'last_name', 'email'],
+      offset: query.offset,
+      limit: query.limit
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   store,
-  getOne
+  getOne,
+  getAll
 };
