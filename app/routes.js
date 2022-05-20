@@ -7,4 +7,5 @@ exports.init = app => {
   app.get('/users', allowEndpoints, listAll);
   app.post('/users', validateSignUp, signUp);
   app.post('/users/sessions', validateSignIn, signIn);
+  app.post('/admin/users', validateSignUp, signUp);
 };
