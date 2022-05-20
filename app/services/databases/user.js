@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs');
-const { query } = require('express');
 const { User } = require('../../models');
 
 const store = async userToCreate => {
