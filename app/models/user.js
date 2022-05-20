@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
           is: /^(?=.*[a-z])(?=.*[0-9])/gm,
           len: [8]
         }
+      },
+      roleId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        default: 1
       }
     },
     {
