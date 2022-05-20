@@ -90,15 +90,15 @@ async function validateSignIn(req, res, next) {
     email: {
       notEmpty: {
         negated: false,
-        errorMessage: 'Cannot be empty field'
+        errorMessage: errorsMessages.EMPTY
       },
       customSanitizer: {
         options: value => {
           const withDomain = value.split('@');
           if (withDomain[1] === undefined) {
-            return 'Invalid email format';
+            return errorsMessages.INVALID_EMAIL;
           } else if (withDomain[1] !== 'wolox.com') {
-            return 'Email not belongs to WOLOX';
+            return errorsMessages.INVALID_DOMAIN;
           }
           return value;
         }
@@ -107,13 +107,13 @@ async function validateSignIn(req, res, next) {
     },
     password: {
       isLength: {
-        errorMessage: 'Password should be at least 8 chars long',
+        errorMessage: errorsMessages.PASSWORD_LONG,
         options: {
           min: 8
         }
       },
       isAlphanumeric: true,
-      errorMessage: 'Password should be Alphanumeric'
+      errorMessage: errorsMessages.PASSWORD_ALPHA
     }
   }).run(req);
   const errors = validationResult(req);
