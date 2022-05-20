@@ -7,13 +7,13 @@ const signUp = async (req, res) => {
     const result = await repository.store(req.body);
     if (result[1]) {
       logger.info('User created Successfully');
-      return res.status(200).json({ Message: 'User created Successfully', Data: result[0] });
+      return res.status(200).json({ message: 'User created Successfully', email: result[0] });
     }
-    logger.error('Email already in use');
-    return res.status(400).json('Email already in use');
+    logger.error({ message: 'Email already in use' });
+    return res.status(400).json({ message: 'Email already in use' });
   } catch (error) {
     logger.error('Server Fail');
-    return res.status(500).json({ Message: 'Server Fail', Errors: error });
+    return res.status(500).json({ message: 'Server Fail', errors: error });
   }
 };
 
@@ -23,13 +23,13 @@ const signIn = async (req, res) => {
     if (result) {
       const userToken = createToken(req.body);
       logger.info('User found');
-      return res.status(200).json({ Message: 'User found', Data: result, token: userToken });
+      return res.status(200).json({ message: 'User found', email: result, token: userToken });
     }
-    logger.error('Wrong email or password');
-    return res.status(400).json('Wrong email or password');
+    logger.error({ message: 'Wrong email or password' });
+    return res.status(400).json({ message: 'Wrong email or password' });
   } catch (error) {
     logger.error('Server Fail');
-    return res.status(500).json({ Message: 'Server Fail', Errors: error });
+    return res.status(500).json({ message: 'Server Fail', errors: error });
   }
 };
 
