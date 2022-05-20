@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { query } = require('express');
 const { User } = require('../../models');
 
 const store = async userToCreate => {
@@ -52,9 +53,7 @@ const getAll = async ({ offset, limit }) => {
       offset,
       limit
     });
-    const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
-    const userFounded = result && isSamePassword === true ? result.email : null;
-    return userFounded;
+    return result;
   } catch (error) {
     return error;
   }
