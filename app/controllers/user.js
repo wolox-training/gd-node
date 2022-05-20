@@ -46,6 +46,18 @@ const listAll = async (req, res) => {
   }
 };
 
+const listAll = async (req, res) => {
+  try {
+    const pagination = req.query;
+    const result = await repository.getAll(pagination);
+    logger.info('All Users');
+    return res.status(200).json({ users: result });
+  } catch (error) {
+    logger.error('Server Fail');
+    return res.status(500).json({ message: 'Server Fail', errors: error });
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
