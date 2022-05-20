@@ -26,10 +26,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      roleId: {
-        type: Sequelize.INTEGER,
+      role_id: {
+        type: Sequelize.STRING,
         allowNull: false,
-        default: 1
+        defaultValue: 'regular'
       }
     });
   },

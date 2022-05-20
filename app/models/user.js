@@ -32,10 +32,10 @@ module.exports = (sequelize, DataTypes) => {
           len: [8]
         }
       },
-      roleId: {
+      role_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        default: 1
+        defaultValue: 'regular'
       }
     },
     {
