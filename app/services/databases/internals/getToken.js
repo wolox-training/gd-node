@@ -1,9 +1,7 @@
 const jwt = require('jwt-simple');
 
-const secret = 'ultra-secret-password';
-
 function createToken(payload) {
-  const token = jwt.encode(payload, secret, 'HS256');
+  const token = jwt.encode(payload, process.env.SECRET_KEY, 'HS256');
   return token;
 }
 
