@@ -16,7 +16,8 @@ describe('Testing Endpoint User', () => {
         first_name: 'Tom',
         last_name: 'Lee',
         email: 'Tom.Lee@wolox.com',
-        password: '12345rE8'
+        password: '12345rE8',
+        role_id: 'regular'
       };
       const result = await repository.store(userToTest);
       expect(result).toBeInstanceOf(Object);
@@ -27,7 +28,8 @@ describe('Testing Endpoint User', () => {
         first_name: 'Tom',
         last_name: 'Lee',
         email: 'Tom.Lee@wolox.com',
-        password: '12345rE8'
+        password: '12345rE8',
+        role_id: 'regular'
       };
       await usersFactory.create();
       const result = await repository.store(userToTest);
@@ -38,7 +40,8 @@ describe('Testing Endpoint User', () => {
         first_name: 'Tom',
         last_name: 'Lee',
         email: 'Tom.Lee@wolox.com',
-        password: '12345'
+        password: '12345rE8',
+        role_id: 'regular'
       };
       await usersFactory.create();
       const result = await repository.store(userToTest);
@@ -49,7 +52,8 @@ describe('Testing Endpoint User', () => {
         first_name: '',
         last_name: '',
         email: '',
-        password: ''
+        password: '',
+        role_id: ''
       };
       await usersFactory.create();
       const result = await repository.store(userToTest);
