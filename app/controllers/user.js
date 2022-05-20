@@ -1,4 +1,5 @@
-const { createToken } = require('../services/databases/internals/getToken');
+const { successfulMesages, errorsMessages } = require('../services/internals/constants');
+const { createToken } = require('../services/internals/getToken');
 const repository = require('../services/databases/user');
 const logger = require('../logger');
 
@@ -6,14 +7,14 @@ const signUp = async (req, res) => {
   try {
     const result = await repository.store(req.body);
     if (result[1]) {
-      logger.info('User created Successfully');
-      return res.status(200).json({ message: 'User created Successfully', email: result[0] });
+      logger.info(successfulMesages.CREATED);
+      return res.status(200).json({ message: successfulMesages.CREATED, email: result[0] });
     }
-    logger.error({ message: 'Email already in use' });
-    return res.status(400).json({ message: 'Email already in use' });
+    logger.error({ message: errorsMessages.EMAIL_DUPLICATE });
+    return res.status(400).json({ message: errorsMessages.EMAIL_DUPLICATE });
   } catch (error) {
-    logger.error('Server Fail');
-    return res.status(500).json({ message: 'Server Fail', errors: error });
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
   }
 };
 
@@ -22,14 +23,14 @@ const signIn = async (req, res) => {
     const result = await repository.getOne(req.body);
     if (result) {
       const userToken = createToken(req.body);
-      logger.info('User found');
-      return res.status(200).json({ message: 'User found', email: result, token: userToken });
+      logger.info(successfulMesages.FOUNDED);
+      return res.status(200).json({ message: successfulMesages.FOUNDED, email: result, token: userToken });
     }
-    logger.error({ message: 'Wrong email or password' });
-    return res.status(400).json({ message: 'Wrong email or password' });
+    logger.error({ message: errorsMessages.WRONG_PARAMS });
+    return res.status(400).json({ message: errorsMessages.WRONG_PARAMS});
   } catch (error) {
     logger.error('Server Fail');
-    return res.status(500).json({ message: 'Server Fail', errors: error });
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
   }
 };
 
