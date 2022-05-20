@@ -29,7 +29,7 @@ const signIn = async (req, res) => {
     logger.error({ message: errorsMessages.WRONG_PARAMS });
     return res.status(400).json({ message: errorsMessages.WRONG_PARAMS });
   } catch (error) {
-    logger.error('Server Fail');
+    logger.error(errorsMessages.FAIL);
     return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
   }
 };
@@ -41,8 +41,8 @@ const listAll = async (req, res) => {
     logger.info('All Users');
     return res.status(200).json({ users: result });
   } catch (error) {
-    logger.error('Server Fail');
-    return res.status(500).json({ message: 'Server Fail', errors: error });
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
   }
 };
 

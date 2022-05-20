@@ -92,7 +92,7 @@ function allowEndpoints(req, res, next) {
     jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
     return next();
   }
-  return res.status(400).json('token was not supplied');
+  return res.status(400).json(errorsMessages.NOT_TOKEN);
 }
 
 module.exports = {
