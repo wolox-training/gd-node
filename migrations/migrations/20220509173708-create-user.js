@@ -29,7 +29,7 @@ module.exports = {
       role_id: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'regular'
+        defaultValue: 'standard'
       }
     });
   },

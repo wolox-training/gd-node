@@ -3,7 +3,7 @@ const userSignUpTest = {
   last_name: 'Lee',
   email: 'Tom.Lee@wolox.com',
   password: '12345rE8',
-  role_id: 'regular'
+  role_id: 'standard'
 };
 
 const userSignUpTestEmpty = {
