@@ -4,32 +4,22 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
   async up(queryInterface) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-     */
-
     await queryInterface.bulkInsert(
-      'User',
+      'users',
       [
         {
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'John.Doe@wolox.com',
+          first_name: 'john',
+          last_name: 'dow',
+          email: 'john.dow@wolox.com',
           password: bcrypt.hashSync('12345678', 10),
           role_id: 'administrator'
         },
         {
-          first_name: 'Tom',
-          last_name: 'Lee',
-          email: 'Tom.Lee@wolox.com',
+          first_name: 'tom',
+          last_name: 'lee',
+          email: 'tom.lee@wolox.com',
           password: bcrypt.hashSync('12345678', 10),
-          role_id: 'regular'
+          role_id: 'standard'
         }
       ],
       {}
@@ -37,12 +27,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-    await queryInterface.bulkDelete('User', null, {});
+    await queryInterface.bulkDelete('users', null, {});
   }
 };
