@@ -1,5 +1,6 @@
 const successfulMesages = {
   CREATED: 'created Successfully',
+  UPDATED: 'updated Successfully',
   FOUNDED: 'Founded'
 };
 
@@ -13,7 +14,8 @@ const errorsMessages = {
   EMAIL_DUPLICATE: 'Already in use',
   WRONG_PARAMS: 'Wrong email or password',
   NOT_CREATED: 'Cannot be created',
-  NOT_TOKEN: 'Token was not supplied'
+  NOT_TOKEN: 'Token was not supplied',
+  NOT_AUTH: 'Unauthorized resources'
 };
 
 module.exports = {
