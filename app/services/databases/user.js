@@ -28,8 +28,14 @@ const getOne = async userToFind => {
       }
     });
     if (result) {
+      const dataUser = {
+        first_name: result.first_name,
+        last_name: result.last_name,
+        email: result.last_name,
+        role_id: result.role_id
+      };
       const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
-      const userFounded = result && isSamePassword === true ? result.email : null;
+      const userFounded = result && isSamePassword === true ? dataUser : null;
       return userFounded;
     }
     return result;
@@ -51,8 +57,40 @@ const getAll = async ({ offset, limit }) => {
   }
 };
 
+const create = async userToCreate => {
+  try {
+    const result = await User.create({
+      first_name: userToCreate.first_name,
+      last_name: userToCreate.last_name,
+      email: userToCreate.email,
+      password: bcrypt.hashSync(userToCreate.password, 10),
+      role_id: 'administrator'
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+const update = async userToUpdate => {
+  try {
+    userToUpdate.password = bcrypt.hashSync(userToUpdate.password, 10);
+    userToUpdate.role_id = 'administrator';
+    const result = await User.update(userToUpdate, {
+      where: {
+        email: userToUpdate.email
+      }
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   store,
   getOne,
-  getAll
+  getAll,
+  update,
+  create
 };

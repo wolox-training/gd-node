@@ -8,7 +8,7 @@ const signUp = async (req, res) => {
     const result = await repository.store(req.body);
     if (result[1]) {
       logger.info(successfulMesages.CREATED);
-      return res.status(200).json({ message: successfulMesages.CREATED, email: result[0] });
+      return res.status(200).json({ message: successfulMesages.CREATED, email: result[0].email });
     }
     logger.error({ message: errorsMessages.EMAIL_DUPLICATE });
     return res.status(400).json({ message: errorsMessages.EMAIL_DUPLICATE });
@@ -22,7 +22,12 @@ const signIn = async (req, res) => {
   try {
     const result = await repository.getOne(req.body);
     if (result) {
-      const userToken = createToken(req.body);
+      const userToken = createToken({
+        first_name: result.first_name,
+        last_name: result.last_name,
+        email: result.email,
+        role_id: result.role_id
+      });
       logger.info(successfulMesages.FOUNDED);
       return res.status(200).json({ message: successfulMesages.FOUNDED, email: result, token: userToken });
     }
@@ -46,8 +51,24 @@ const listAll = async (req, res) => {
   }
 };
 
+const signUpOrUpdateAdmin = async (req, res) => {
+  try {
+    const result = await repository.store(req.body);
+    if (result[1]) {
+      logger.info(successfulMesages.CREATED);
+      return res.status(200).json({ message: successfulMesages.CREATED, email: result[0] });
+    }
+    const userToUpdate = await repository.update(req.body);
+    return res.status(200).json({ message: successfulMesages.UPDATED, email: userToUpdate[1] });
+  } catch (error) {
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
-  listAll
+  listAll,
+  signUpOrUpdateAdmin
 };
