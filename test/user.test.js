@@ -1,7 +1,12 @@
 const request = require('supertest');
 const app = require('../app');
 const repository = require('../app/services/databases/user');
-const { userSignUpTest, userSignUpTestEmpty, userSignInTest } = require('../app/services/internals/fakeData');
+const {
+  userSignUpTest,
+  userSignUpTestEmpty,
+  userSignInTest,
+  userSignUpAdminTest
+} = require('../app/services/internals/fakeData');
 const usersFactory = require('./factory/user');
 
 describe('Testing Endpoint User', () => {
@@ -46,14 +51,13 @@ describe('Testing Endpoint User', () => {
         .post('/users/sessions')
         .send(userSignInTest)
         .then(response => {
-          expect(response.body.email).toEqual('Tom.Lee@wolox.com');
+          expect(response.body.email.email).toEqual('tom.lee@wolox.com');
           expect(response.statusCode).toBe(200);
         });
     });
     test('User login fail wrong password', async () => {
-      await jest.setTimeout(30000);
       const userToTest = {
-        email: 'Tom.Lee@wolox.com',
+        email: 'tom.lee@wolox.com',
         password: '12345rt89'
       };
       await request(app)
@@ -66,7 +70,7 @@ describe('Testing Endpoint User', () => {
     });
     test('User login fail wrong email', async () => {
       const userToTest = {
-        email: 'Tom.Lee.13@wolox.com',
+        email: 'tom.lee.13@wolox.com',
         password: '12345rt8'
       };
       await request(app)
@@ -80,10 +84,9 @@ describe('Testing Endpoint User', () => {
   });
   describe('listAll', () => {
     test('list all user successfully', async () => {
-      await jest.setTimeout(30000);
       const tokenToTest = {
         authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG4uZG93LjEzQHdvbG94LmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgifQ.VI2EM4wQN6VV76872ralb1cchHEsrRAdVcG2YHn__KI'
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvdyAxMSIsImVtYWlsIjoiam9obi5kb3cuMTFAd29sb3guY29tIiwicm9sZV9pZCI6InN0YW5kYXJkIn0.5r0QEHhq8G0E2_RTqWoAdrtPcaw3jWYxSokvWGVSxa8'
       };
       await request(app)
         .get('/users')
@@ -94,7 +97,6 @@ describe('Testing Endpoint User', () => {
         });
     });
     test('list all user fail without token', async () => {
-      await jest.setTimeout(30000);
       const tokenToTest = {
         authorization: ''
       };
@@ -104,6 +106,58 @@ describe('Testing Endpoint User', () => {
         .then(response => {
           expect(response.statusCode).toBe(400);
           expect(response.text).toEqual('"Token was not supplied"');
+        });
+    });
+  });
+  describe('signUpAdmin', () => {
+    beforeEach(async () => {
+      await jest.clearAllMocks();
+    });
+    test('Create user Admin successfully', async () => {
+      const tokenToTest = {
+        authorization:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvdyAxIiwiZW1haWwiOiJqb2huLmRvdy4xQHdvbG94LmNvbSIsInJvbGVfaWQiOiJhZG1pbmlzdHJhdG9yIn0.Grs6gZlLt9MdgaRfTKVyZlcHtlqsS9FSfIFKq6kt1Ao'
+      };
+      await request(app)
+        .post('/admin/users')
+        .set(tokenToTest)
+        .send(userSignUpAdminTest)
+        .then(response => {
+          expect(response.statusCode).toBe(200);
+          expect(response.body.message).toEqual('created Successfully');
+        });
+    });
+    test('Update user Admin successfully', async () => {
+      await usersFactory.create();
+      const tokenToTest = {
+        authorization:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdF9uYW1lIjoiSm9obiIsImxhc3RfbmFtZSI6IkRvZSIsImVtYWlsIjoiRG9lIiwicm9sZV9pZCI6ImFkbWluaXN0cmF0b3IifQ.1WkiDFZrXUvJ4nvtafFHcscjq7YeZIxnywSXCoIonQk'
+      };
+      const userToTest = {
+        first_name: 'tom',
+        last_name: 'lee',
+        email: 'tom.lee@wolox.com',
+        password: '12345678'
+      };
+      await request(app)
+        .post('/admin/users')
+        .set(tokenToTest)
+        .send(userToTest)
+        .then(response => {
+          expect(response.statusCode).toBe(200);
+          expect(response.body.message).toEqual('updated Successfully');
+        });
+    });
+    test('Create user Admin Fail', async () => {
+      await jest.setTimeout(30000);
+      const tokenToTest = { authorization: '' };
+      await request(app)
+        .post('/admin/users')
+        .set(tokenToTest)
+        .send(userSignUpAdminTest)
+        .then(response => {
+          expect(response.statusCode).toBe(400);
+          expect(response.error.text).toEqual('"Token was not supplied"');
         });
     });
   });
