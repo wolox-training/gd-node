@@ -1,6 +1,6 @@
-const { errorsMessages } = require('../services/internals/constants')
 const jwt = require('jwt-simple');
 const { checkSchema, validationResult } = require('express-validator');
+const { errorsMessages } = require('../services/internals/constants');
 
 async function validateSignUp(req, res, next) {
   await checkSchema({

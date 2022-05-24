@@ -116,7 +116,6 @@ describe('Testing Endpoint User', () => {
         .get('/users')
         .set(tokenToTest)
         .then(response => {
-          console.log(response);
           expect(response.statusCode).toBe(200);
           expect(response.text).toEqual('{"users":[]}');
         });
