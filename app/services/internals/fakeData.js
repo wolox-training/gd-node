@@ -1,7 +1,7 @@
 const userSignUpTest = {
-  first_name: 'Tom',
-  last_name: 'Lee',
-  email: 'Tom.Lee@wolox.com',
+  first_name: 'tom',
+  last_name: 'lee',
+  email: 'tom.lee@wolox.com',
   password: '12345rE8',
   role_id: 'standard'
 };
@@ -15,12 +15,20 @@ const userSignUpTestEmpty = {
 };
 
 const userSignInTest = {
-  email: 'Tom.Lee@wolox.com',
+  email: 'tom.lee@wolox.com',
   password: '12345rt8'
+};
+
+const userSignUpAdminTest = {
+  first_name: 'tom',
+  last_name: 'lee',
+  email: 'tom.lee@wolox.com',
+  password: '12345rE8'
 };
 
 module.exports = {
   userSignUpTest,
   userSignUpTestEmpty,
-  userSignInTest
+  userSignInTest,
+  userSignUpAdminTest
 };
