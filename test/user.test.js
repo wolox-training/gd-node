@@ -56,7 +56,6 @@ describe('Testing Endpoint User', () => {
       expect(result.errors).toBeInstanceOf(Array);
     });
   });
-
   describe('signIn', () => {
     beforeEach(async () => {
       await jest.clearAllMocks();
@@ -93,7 +92,6 @@ describe('Testing Endpoint User', () => {
         });
     });
     test('User login fail wrong email', async () => {
-      await jest.setTimeout(30000);
       const userToTest = {
         email: 'Tom.Lee.13@wolox.com',
         password: '12345rt8'
@@ -102,9 +100,37 @@ describe('Testing Endpoint User', () => {
         .post('/users/sessions')
         .send(userToTest)
         .then(response => {
-          console.log(response, '888');
           expect(response.error.text).toEqual('{"message":"Wrong email or password"}');
           expect(response.statusCode).toBe(400);
+        });
+    });
+  });
+  describe('listAll', () => {
+    test('list all user successfully', async () => {
+      await jest.setTimeout(30000);
+      const tokenToTest = {
+        authorization:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG4uZG93LjEzQHdvbG94LmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgifQ.VI2EM4wQN6VV76872ralb1cchHEsrRAdVcG2YHn__KI'
+      };
+      await request(app)
+        .get('/users')
+        .set(tokenToTest)
+        .then(response => {
+          expect(response.statusCode).toBe(200);
+          expect(response.text).toEqual('{"users":[]}');
+        });
+    });
+    test('list all user fail without token', async () => {
+      await jest.setTimeout(30000);
+      const tokenToTest = {
+        authorization: ''
+      };
+      await request(app)
+        .get('/users')
+        .set(tokenToTest)
+        .then(response => {
+          expect(response.statusCode).toBe(400);
+          expect(response.text).toEqual('"token was not supplied"');
         });
     });
   });

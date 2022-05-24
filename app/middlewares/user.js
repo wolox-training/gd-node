@@ -1,5 +1,6 @@
-const { errorsMessages } = require('../services/internals/constants')
+const jwt = require('jwt-simple');
 const { checkSchema, validationResult } = require('express-validator');
+const { errorsMessages } = require('../services/internals/constants');
 
 async function validateSignUp(req, res, next) {
   await checkSchema({
@@ -85,7 +86,17 @@ async function validateSignIn(req, res, next) {
   return next();
 }
 
+function allowEndpoints(req, res, next) {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
+    return next();
+  }
+  return res.status(400).json('token was not supplied');
+}
+
 module.exports = {
   validateSignUp,
-  validateSignIn
+  validateSignIn,
+  allowEndpoints
 };

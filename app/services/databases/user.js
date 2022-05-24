@@ -38,7 +38,21 @@ const getOne = async userToFind => {
   }
 };
 
+const getAll = async ({ offset, limit }) => {
+  try {
+    const result = await User.findAll({
+      attributes: ['id', 'first_name', 'last_name', 'email'],
+      offset,
+      limit
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   store,
-  getOne
+  getOne,
+  getAll
 };
