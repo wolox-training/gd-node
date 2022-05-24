@@ -53,6 +53,7 @@ const listAll = async (req, res) => {
 
 const signUpOrUpdateAdmin = async (req, res) => {
   try {
+    req.body.role_id = 'administrator';
     const result = await repository.store(req.body);
     if (result[1]) {
       logger.info(successfulMesages.CREATED);

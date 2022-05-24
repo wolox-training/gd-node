@@ -11,7 +11,8 @@ const store = async userToCreate => {
         first_name: userToCreate.first_name,
         last_name: userToCreate.last_name,
         email: userToCreate.email,
-        password: bcrypt.hashSync(userToCreate.password, 10)
+        password: bcrypt.hashSync(userToCreate.password, 10),
+        role_id: userToCreate.role_id
       }
     });
     return [user, created];
@@ -31,7 +32,7 @@ const getOne = async userToFind => {
       const dataUser = {
         first_name: result.first_name,
         last_name: result.last_name,
-        email: result.last_name,
+        email: result.email,
         role_id: result.role_id
       };
       const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
