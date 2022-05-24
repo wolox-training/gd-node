@@ -38,14 +38,12 @@ const getOne = async userToFind => {
   }
 };
 
-const getAll = async pagination => {
+const getAll = async ({ offset, limit }) => {
   try {
-    const queryDefault = { offset: 1, limit: 5 };
-    const query = Object.keys(pagination).length === 0 ? queryDefault : pagination;
     const result = await User.findAll({
       attributes: ['id', 'first_name', 'last_name', 'email'],
-      offset: query.offset,
-      limit: query.limit
+      offset,
+      limit
     });
     return result;
   } catch (error) {

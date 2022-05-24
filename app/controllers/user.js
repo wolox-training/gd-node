@@ -27,7 +27,7 @@ const signIn = async (req, res) => {
       return res.status(200).json({ message: successfulMesages.FOUNDED, email: result, token: userToken });
     }
     logger.error({ message: errorsMessages.WRONG_PARAMS });
-    return res.status(400).json({ message: errorsMessages.WRONG_PARAMS});
+    return res.status(400).json({ message: errorsMessages.WRONG_PARAMS });
   } catch (error) {
     logger.error('Server Fail');
     return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
@@ -36,8 +36,8 @@ const signIn = async (req, res) => {
 
 const listAll = async (req, res) => {
   try {
-    const pagination = req.query;
-    const result = await repository.getAll(pagination);
+    const { offset = 1, limit = 3 } = req.query;
+    const result = await repository.getAll({ offset, limit });
     logger.info('All Users');
     return res.status(200).json({ users: result });
   } catch (error) {
