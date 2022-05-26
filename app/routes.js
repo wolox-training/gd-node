@@ -1,10 +1,11 @@
 const { healthCheck } = require('./controllers/healthCheck');
-const { validateSignUp, validateSignIn, allowEndpoints } = require('./middlewares/user');
-const { signUp, signIn, listAll } = require('./controllers/user');
+const { validateSignUp, validateSignIn, isStandardUser, isAdminUser } = require('./middlewares/user');
+const { signUp, signIn, listAll, signUpOrUpdateAdmin } = require('./controllers/user');
 
 exports.init = app => {
   app.get('/health', healthCheck);
-  app.get('/users', allowEndpoints, listAll);
+  app.get('/users', isStandardUser, listAll);
   app.post('/users', validateSignUp, signUp);
   app.post('/users/sessions', validateSignIn, signIn);
+  app.post('/admin/users', isAdminUser, validateSignUp, signUpOrUpdateAdmin);
 };

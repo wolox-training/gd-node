@@ -25,6 +25,11 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      role_id: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'standard'
       }
     });
   },

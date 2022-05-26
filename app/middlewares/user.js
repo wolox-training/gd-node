@@ -86,17 +86,33 @@ async function validateSignIn(req, res, next) {
   return next();
 }
 
-function allowEndpoints(req, res, next) {
+function isStandardUser(req, res, next) {
   const token = req.headers.authorization;
   if (token) {
-    jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
-    return next();
+    const decoded = jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
+    if (decoded.role_id === 'standard' || decoded.role_id === 'administrator') {
+      return next();
+    }
+    return res.status(400).json(errorsMessages.NOT_AUTH);
   }
-  return res.status(400).json('token was not supplied');
+  return res.status(400).json(errorsMessages.NOT_TOKEN);
+}
+
+function isAdminUser(req, res, next) {
+  const token = req.headers.authorization;
+  if (token) {
+    const decoded = jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
+    if (decoded.role_id === 'administrator') {
+      return next();
+    }
+    return res.status(400).json(errorsMessages.NOT_AUTH);
+  }
+  return res.status(400).json(errorsMessages.NOT_TOKEN);
 }
 
 module.exports = {
   validateSignUp,
   validateSignIn,
-  allowEndpoints
+  isStandardUser,
+  isAdminUser
 };
