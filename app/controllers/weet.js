@@ -4,7 +4,7 @@ const logger = require('../logger');
 
 const createWeet = async (req, res) => {
   try {
-    const result = await repository.store(req.body);
+    const result = await repository.store(req);
     if (result) {
       logger.info(successfulMesages.CREATED);
       return res.status(200).json({ message: successfulMesages.CREATED, weet: result });
