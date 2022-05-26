@@ -23,6 +23,7 @@ const signIn = async (req, res) => {
     const result = await repository.getOne(req.body);
     if (result) {
       const userToken = createToken({
+        id: result.id,
         first_name: result.first_name,
         last_name: result.last_name,
         email: result.email,
