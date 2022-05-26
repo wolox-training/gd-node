@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      userId: {
-        type: DataTypes.STRING,
+      user_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        reference: {
+        references: {
           model: 'User',
           key: 'id'
         }
@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: 'weets',
-      timestamps: false
+      timestamps: false,
+      underscored: true
     }
   );
   return Weet;
