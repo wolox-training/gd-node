@@ -6,11 +6,13 @@ module.exports = {
       'weets',
       [
         {
-          content: 'Chuck Norris protocol design method has no status, requests or responses, only commands. and other things',
+          content:
+            'Chuck Norris protocol design method has no status, requests or responses, only commands. and other things',
           user_id: 1
         },
         {
-          content: 'Robert Deniro protocol design method has no status, requests or responses, only commands.',
+          content:
+            'Robert Deniro protocol design method has no status, requests or responses, only commands.',
           user_id: 2
         }
       ],
