@@ -9,8 +9,8 @@ const createWeet = async (req, res) => {
       logger.info(successfulMesages.CREATED);
       return res.status(200).json({ message: successfulMesages.CREATED, weet: result });
     }
-    logger.error({ message: errorsMessages.FAIL });
-    return res.status(400).json({ message: errorsMessages.FAIL });
+    logger.error({ message: errorsMessages.NOT_CREATED });
+    return res.status(400).json({ message: errorsMessages.NOT_CREATED });
   } catch (error) {
     logger.error(errorsMessages.FAIL);
     return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
