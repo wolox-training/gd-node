@@ -17,6 +17,19 @@ const createWeet = async (req, res) => {
   }
 };
 
+const listAllWeets = async (req, res) => {
+  try {
+    const { offset = 1, limit = 3 } = req.query;
+    const result = await repository.getAll({ offset, limit });
+    logger.info(successfulMesages.LIST_ALL);
+    return res.status(200).json({ weets: result });
+  } catch (error) {
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
+  }
+};
+
 module.exports = {
-  createWeet
+  createWeet,
+  listAllWeets
 };

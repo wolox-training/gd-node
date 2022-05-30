@@ -14,6 +14,16 @@ const store = async weetUser => {
   }
 };
 
+const getAll = async ({ offset, limit }) => {
+  try {
+    const result = await Weet.findAll({ offset, limit });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
-  store
+  store,
+  getAll
 };
