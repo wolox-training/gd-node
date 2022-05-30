@@ -30,6 +30,7 @@ const getOne = async userToFind => {
     });
     if (result) {
       const dataUser = {
+        id: result.id,
         first_name: result.first_name,
         last_name: result.last_name,
         email: result.email,

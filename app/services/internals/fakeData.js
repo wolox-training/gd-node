@@ -1,3 +1,21 @@
+const bcrypt = require('bcryptjs');
+
+const userToTest = {
+  first_name: 'tom',
+  last_name: 'lee',
+  email: 'tom.lee@wolox.com',
+  password: bcrypt.hashSync('12345678', 10),
+  role_id: 'standard'
+};
+
+const adminToTest = {
+  first_name: 'john',
+  last_name: 'dow',
+  email: 'john.dow@wolox.com',
+  password: bcrypt.hashSync('12345678', 10),
+  role_id: 'administrator'
+};
+
 const userSignUpTest = {
   first_name: 'tom',
   last_name: 'lee',
@@ -26,9 +44,23 @@ const userSignUpAdminTest = {
   password: '12345rE8'
 };
 
+const tokenUserToTest = {
+  authorization:
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6InRvbSIsImxhc3RfbmFtZSI6ImxlZSIsImVtYWlsIjoidG9tLmxlZUB3b2xveC5jb20iLCJyb2xlX2lkIjoic3RhbmRhcmQifQ.usr7oetkpBXZItUmeHEOFxMwxvnG5jsJ8fg5xppUBBo'
+};
+
+const tokenAdminToTest = {
+  authorization:
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6ImpvaG4iLCJsYXN0X25hbWUiOiJkb3ciLCJlbWFpbCI6ImpvaG4uZG93QHdvbG94LmNvbSIsInJvbGVfaWQiOiJhZG1pbmlzdHJhdG9yIn0.IToIJAMLYgL1B2awH_-GHBCKUX1i5zSV2wfs2bQ2Y6w'
+};
+
 module.exports = {
+  userToTest,
+  adminToTest,
   userSignUpTest,
   userSignUpTestEmpty,
   userSignInTest,
-  userSignUpAdminTest
+  userSignUpAdminTest,
+  tokenUserToTest,
+  tokenAdminToTest
 };

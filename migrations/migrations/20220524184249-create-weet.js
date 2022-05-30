@@ -13,8 +13,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      userId: {
-        type: Sequelize.INTEGER
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       }
     });
   },

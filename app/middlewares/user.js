@@ -91,6 +91,7 @@ function isStandardUser(req, res, next) {
   if (token) {
     const decoded = jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
     if (decoded.role_id === 'standard' || decoded.role_id === 'administrator') {
+      req.decoded = decoded;
       return next();
     }
     return res.status(400).json(errorsMessages.NOT_AUTH);
