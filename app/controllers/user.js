@@ -40,11 +40,11 @@ const signIn = async (req, res) => {
   }
 };
 
-const listAll = async (req, res) => {
+const listAllUsers = async (req, res) => {
   try {
     const { offset = 1, limit = 3 } = req.query;
     const result = await repository.getAll({ offset, limit });
-    logger.info('All Users');
+    logger.info(successfulMesages.LIST_ALL);
     return res.status(200).json({ users: result });
   } catch (error) {
     logger.error(errorsMessages.FAIL);
@@ -71,6 +71,6 @@ const signUpOrUpdateAdmin = async (req, res) => {
 module.exports = {
   signUp,
   signIn,
-  listAll,
+  listAllUsers,
   signUpOrUpdateAdmin
 };
