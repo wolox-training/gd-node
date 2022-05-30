@@ -46,7 +46,7 @@ const userSignUpAdminTest = {
 
 const tokenUserToTest = {
   authorization:
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6InRvbSIsImxhc3RfbmFtZSI6ImxlZSIsImVtYWlsIjoidG9tLmxlZUB3b2xveC5jb20iLCJyb2xlX2lkIjoic3RhbmRhcmQifQ.YANFdpBXf8U4ffPZRVgsPKXXWPgJg_6QPp_CBCXsGBI'
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6InRvbSIsImxhc3RfbmFtZSI6ImxlZSIsImVtYWlsIjoidG9tLmxlZUB3b2xveC5jb20iLCJyb2xlX2lkIjoic3RhbmRhcmQifQ.usr7oetkpBXZItUmeHEOFxMwxvnG5jsJ8fg5xppUBBo'
 };
 
 const tokenAdminToTest = {
