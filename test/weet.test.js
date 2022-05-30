@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../app');
-const { adminToTest, userToTest, tokenUserToTest } = require('../app/services/internals/fakeData');
+const { userToTest, tokenUserToTest } = require('../app/services/internals/fakeData');
 const usersFactory = require('./factory/user');
 
 describe('Testing Endpoint Weet', () => {
@@ -9,7 +9,6 @@ describe('Testing Endpoint Weet', () => {
       await jest.clearAllMocks();
     });
     test('Weet create successfully', async () => {
-      await usersFactory.create(adminToTest);
       await usersFactory.create(userToTest);
       await request(app)
         .post('/weets')
@@ -20,13 +19,12 @@ describe('Testing Endpoint Weet', () => {
         });
     });
     test('Weet create fail without token', async () => {
-      await usersFactory.create(adminToTest);
       await usersFactory.create(userToTest);
       await request(app)
         .post('/weets')
         .then(response => {
           expect(response.statusCode).toBe(400);
-          expect(response.body).toEqual('Token was not supplied');
+          expect(response.error.text).toEqual('"Token was not supplied"');
         });
     });
   });
