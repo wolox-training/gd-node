@@ -15,15 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       weet_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        reference: {
+        references: {
           model: 'Weet',
           key: 'id'
         }
       },
       score: {
-        type: DataTypes.ENUM,
-        values: [1, -1],
-        allowNull: false
+        type: DataTypes.ARRAY(DataTypes.STRING),
       }
     },
     {
