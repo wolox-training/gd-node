@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 'standard'
+      },
+      position: {
+        // eslint-disable-next-line new-cap
+        type: DataTypes.ARRAY(DataTypes.STRING),
       }
     },
     {
