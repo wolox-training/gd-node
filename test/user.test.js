@@ -124,7 +124,7 @@ describe('Testing Endpoint User', () => {
         .send(userSignUpAdminTest)
         .then(response => {
           expect(response.statusCode).toBe(200);
-          expect(response.body.message).toEqual('created Successfully');
+          expect(response.body.message).toEqual('Created Successfully');
         });
     });
     test('Update user Admin successfully', async () => {
@@ -145,7 +145,7 @@ describe('Testing Endpoint User', () => {
         .send(userToTest)
         .then(response => {
           expect(response.statusCode).toBe(200);
-          expect(response.body.message).toEqual('updated Successfully');
+          expect(response.body.message).toEqual('Updated Successfully');
         });
     });
     test('Create user Admin Fail', async () => {
