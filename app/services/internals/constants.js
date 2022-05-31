@@ -1,7 +1,8 @@
 const successfulMesages = {
-  CREATED: 'created Successfully',
-  UPDATED: 'updated Successfully',
-  FOUNDED: 'Founded'
+  CREATED: 'Created Successfully',
+  UPDATED: 'Updated Successfully',
+  FOUNDED: 'Founded',
+  LIST_ALL: 'List All'
 };
 
 const errorsMessages = {
