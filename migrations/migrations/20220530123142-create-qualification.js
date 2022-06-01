@@ -24,6 +24,11 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable('qualifications');
+    await queryInterface.sequelize.transaction(() => 
+      Promise.all([
+        queryInterface.dropTable('qualifications'),
+        queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_qualifications_score";')
+      ])
+    )
   }
 };
