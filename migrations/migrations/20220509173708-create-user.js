@@ -30,10 +30,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: 'standard'
-      },
-      position: {
-        // eslint-disable-next-line new-cap
-        type: Sequelize.ARRAY(Sequelize.STRING)
       }
     });
   },
