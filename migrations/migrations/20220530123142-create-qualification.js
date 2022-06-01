@@ -11,7 +11,8 @@ module.exports = {
       },
       rating_user_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
       },
       weet_id: {
         type: Sequelize.INTEGER,

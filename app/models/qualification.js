@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       rating_user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
       },
       weet_id: {
         type: DataTypes.INTEGER,
