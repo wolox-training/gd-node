@@ -12,14 +12,16 @@ module.exports = {
           last_name: 'dow',
           email: 'john.dow@wolox.com',
           password: bcrypt.hashSync('12345678', 10),
-          role_id: 'administrator'
+          role_id: 'administrator',
+          position: 'ceo'
         },
         {
           first_name: 'tom',
           last_name: 'lee',
           email: 'tom.lee@wolox.com',
           password: bcrypt.hashSync('12345678', 10),
-          role_id: 'standard'
+          role_id: 'standard',
+          position: 'em'
         }
       ],
       {}
