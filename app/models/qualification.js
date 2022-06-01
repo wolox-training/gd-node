@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       score: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ENUM,
+        values: ['1', '-1'],
+        allowNull: false
       }
     },
     {
