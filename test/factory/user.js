@@ -7,7 +7,8 @@ factory.define('user', User, {
   last_name: 'lee',
   email: 'tom.lee@wolox.com',
   password: bcrypt.hashSync('12345rt8', 10),
-  role_id: 'standard'
+  role_id: 'standard',
+  position: 'developer'
 });
 
 module.exports = {
