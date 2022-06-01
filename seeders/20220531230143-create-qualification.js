@@ -11,7 +11,7 @@ module.exports = {
           score: 1
         },
         {
-          rating_user_id: 1,
+          rating_user_id: 0,
           weet_id: 2,
           score: -1
         },
@@ -21,7 +21,7 @@ module.exports = {
           score: 1
         },
         {
-          rating_user_id: 2,
+          rating_user_id: 1,
           weet_id: 4,
           score: 1
         }
