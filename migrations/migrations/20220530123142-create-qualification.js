@@ -18,8 +18,8 @@ module.exports = {
         allowNull: false
       },
       score: {
-        // eslint-disable-next-line new-cap
-        type: Sequelize.ARRAY(Sequelize.STRING)
+        type: Sequelize.ENUM,
+        values: ['1', '-1']
       }
     });
   },
