@@ -12,8 +12,7 @@ const store = async userToCreate => {
         last_name: userToCreate.last_name,
         email: userToCreate.email,
         password: bcrypt.hashSync(userToCreate.password, 10),
-        role_id: userToCreate.role_id,
-        position: userToCreate.position
+        role_id: userToCreate.role_id
       }
     });
     return [user, created];
