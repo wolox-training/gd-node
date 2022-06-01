@@ -23,7 +23,21 @@ const getAll = async ({ offset, limit }) => {
   }
 };
 
+const update = async weetId => {
+  try {
+    const result = await Weet.update({
+      where: {
+        id: weetId
+      }
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   store,
-  getAll
+  getAll,
+  update
 };

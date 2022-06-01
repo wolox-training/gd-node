@@ -22,8 +22,20 @@ const listAllWeets = async (req, res) => {
     const offset = Number(req.query.offset) > 0 ? Number(req.query.offset) : 1;
     const limit = Number(req.query.limit) > 0 ? Number(req.query.limit) : 3;
     const result = await repository.getAll({ offset, limit });
-    logger.info(successfulMesages.LIST_ALL);
+    logger.info(successfulMesages.LISTED);
     return res.status(200).json({ weets: result });
+  } catch (error) {
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
+  }
+};
+
+const updateWeet = async (req, res) => {
+  try {
+    const rating = req.body.score;
+    // const result = await repository.update(rating);
+    // logger.info(successfulMesages.UPDATED);
+    return res.status(200).json({ weets: rating });
   } catch (error) {
     logger.error(errorsMessages.FAIL);
     return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
@@ -32,5 +44,6 @@ const listAllWeets = async (req, res) => {
 
 module.exports = {
   createWeet,
-  listAllWeets
+  listAllWeets,
+  updateWeet
 };
