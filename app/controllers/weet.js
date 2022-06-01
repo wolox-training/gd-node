@@ -30,7 +30,20 @@ const listAllWeets = async (req, res) => {
   }
 };
 
+const updateWeet = async (req, res) => {
+  try {
+    const rating = req.body.score;
+    // const result = await repository.update(rating);
+    // logger.info(successfulMesages.UPDATED);
+    return res.status(200).json({ weets: rating });
+  } catch (error) {
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
+  }
+};
+
 module.exports = {
   createWeet,
-  listAllWeets
+  listAllWeets,
+  updateWeet
 };
