@@ -30,7 +30,7 @@ const listAllWeets = async (req, res) => {
   }
 };
 
-const updateWeet = async (req, res) => {
+const updateWeet = (req, res) => {
   try {
     const rating = req.body.score;
     // const result = await repository.update(rating);
