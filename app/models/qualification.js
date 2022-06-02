@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Qualification = sequelize.define(
-    'qualifications',
+    'Qualification',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       rating_user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0
+        references: {
+          model: 'User',
+          key: 'id'
+        }
       },
       weet_id: {
         type: DataTypes.INTEGER,
