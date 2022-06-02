@@ -28,18 +28,6 @@ const getOne = async userToFind => {
         email: userToFind.email
       }
     });
-    if (result) {
-      const dataUser = {
-        id: result.id,
-        first_name: result.first_name,
-        last_name: result.last_name,
-        email: result.email,
-        role_id: result.role_id
-      };
-      const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
-      const userFounded = result && isSamePassword === true ? dataUser : null;
-      return userFounded;
-    }
     return result;
   } catch (error) {
     return error;
