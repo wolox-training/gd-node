@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const { Qualification } = require('../../models');
+const { Op } = require("sequelize");
 
 const store = async ({ findUser, findWeet, weetScore }) => {
   try {
