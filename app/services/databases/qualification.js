@@ -1,5 +1,5 @@
+const { Op } = require('sequelize');
 const { Qualification } = require('../../models');
-const { Op } = require("sequelize");
 
 const store = async ({ findUser, findWeet, weetScore }) => {
   try {
@@ -17,12 +17,7 @@ const store = async ({ findUser, findWeet, weetScore }) => {
 const getOne = async ({ findUser, findWeet }) => {
   try {
     const result = await Qualification.findOne({
-      where: {
-        [Op.and]: [
-          { rating_user_id: findUser },
-          { weet_id: findWeet }
-        ]
-      }
+      where: { [Op.and]: [{ rating_user_id: findUser }, { weet_id: findWeet }] }
     });
     return result;
   } catch (error) {
@@ -30,31 +25,38 @@ const getOne = async ({ findUser, findWeet }) => {
   }
 };
 
-const update = async weetId => {
+const update = async ({ findWeet, weetScore }) => {
   try {
-    console.log(findUser, findWeet);
-    const result = await Qualification.update({
-      where: {
-        id: weetId
+    const result = await Qualification.update(
+      { score: weetScore },
+      {
+        where: {
+          id: findWeet
+        }
       }
-    });
+    );
     return result;
   } catch (error) {
     return error;
   }
 };
 
-const sum = async ({ findUser, findWeet }) => {
+const totalWeet = async ({ findUser, findWeet }) => {
   try {
     const result = await Qualification.count({
-      where: {
-        [Op.and]: [
-          { rating_user_id: findUser },
-          { weet_id: findWeet }
-        ]
-        }
+      where: { [Op.and]: [{ rating_user_id: findUser }, { weet_id: findWeet }] }
     });
-    console.log(result, '999');
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+const sumScore = async () => {
+  try {
+    const result = await Qualification.sum('score', {
+      group: 'weet_id'
+    });
     return result;
   } catch (error) {
     return error;
@@ -65,5 +67,6 @@ module.exports = {
   store,
   getOne,
   update,
-  sum
+  totalWeet,
+  sumScore
 };
