@@ -34,6 +34,19 @@ const getOne = async userToFind => {
   }
 };
 
+const getById = async userToFind => {
+  try {
+    const result = await User.findByPk({
+      where: {
+        id: userToFind
+      }
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 const getAll = async ({ offset, limit }) => {
   try {
     const result = await User.findAll({
@@ -80,6 +93,7 @@ const update = async userToUpdate => {
 module.exports = {
   store,
   getOne,
+  getById,
   getAll,
   update,
   create
