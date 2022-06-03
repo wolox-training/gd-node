@@ -25,8 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       score: {
-        type: DataTypes.ENUM,
-        values: ['1', '-1'],
+        type: DataTypes.INTEGER,
+        validate: {
+          isIn: [[1, -1]]
+        },
         allowNull: false
       }
     },

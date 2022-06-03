@@ -18,8 +18,8 @@ module.exports = {
         allowNull: false
       },
       score: {
-        type: Sequelize.ENUM,
-        values: ['1', '-1']
+        type: Sequelize.INTEGER,
+        allowNull: false
       }
     });
   },

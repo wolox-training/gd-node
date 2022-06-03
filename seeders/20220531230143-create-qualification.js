@@ -8,22 +8,22 @@ module.exports = {
         {
           rating_user_id: 1,
           weet_id: 1,
-          score: '1'
+          score: 1
         },
         {
           rating_user_id: 1,
           weet_id: 2,
-          score: '-1'
+          score: -1
         },
         {
           rating_user_id: 1,
           weet_id: 3,
-          score: '1'
+          score: 1
         },
         {
           rating_user_id: 2,
           weet_id: 4,
-          score: '1'
+          score: 1
         }
       ],
       {}
