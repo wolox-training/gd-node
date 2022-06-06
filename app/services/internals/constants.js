@@ -2,7 +2,8 @@ const successfulMesages = {
   CREATED: 'Created Successfully',
   UPDATED: 'Updated Successfully',
   FOUNDED: 'Founded Successfully',
-  LISTED: 'Listed Successfully'
+  LISTED: 'Listed Successfully',
+  QUALIFIED: 'Qualify Successfully'
 };
 
 const errorsMessages = {
