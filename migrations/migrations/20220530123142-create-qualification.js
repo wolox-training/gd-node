@@ -11,11 +11,19 @@ module.exports = {
       },
       rating_user_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       },
       weet_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'weets',
+          key: 'id'
+        }
       },
       score: {
         type: Sequelize.INTEGER,
