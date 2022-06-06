@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { successfulMesages, errorsMessages } = require('../services/internals/constants');
 const { createToken } = require('../services/internals/getToken');
+const { welcomeEmailUser } = require('../services/externals/welcomeEmail');
 const repository = require('../services/databases/user');
 const logger = require('../logger');
 
@@ -8,6 +9,7 @@ const signUp = async (req, res) => {
   try {
     const result = await repository.store(req.body);
     if (result[1]) {
+      welcomeEmailUser(result[0]);
       logger.info(successfulMesages.CREATED);
       return res.status(200).json({ message: successfulMesages.CREATED, email: result[0].email });
     }
