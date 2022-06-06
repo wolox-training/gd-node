@@ -32,7 +32,9 @@ const update = async ({ findWeet, weetScore }) => {
       {
         where: {
           id: findWeet
-        }
+        },
+        returning: true,
+        plain: true
       }
     );
     return result;
@@ -52,10 +54,12 @@ const totalWeet = async ({ findUser, findWeet }) => {
   }
 };
 
-const sumScore = async () => {
+const sumScore = async findWeet => {
   try {
     const result = await Qualification.sum('score', {
-      group: 'weet_id'
+      where: {
+        weet_id: findWeet
+      }
     });
     return result;
   } catch (error) {

@@ -14,11 +14,9 @@ const createQualifyWeet = async (req, res) => {
       qualifyWeetFounded === null
         ? await repository.store({ findUser, findWeet, weetScore })
         : qualifyWeetFounded;
-    if (weetScore === createQualify.score) {
-      return createQualify;
-    }
-    await repository.update({ findWeet, weetScore });
-    const sumScore = await repository.sumScore();
+    const compareScore =
+      weetScore === createQualify.score ? createQualify : await repository.update({ findWeet, weetScore });
+    const sumScore = await repository.sumScore(compareScore.weet_id);
     const checkPosition = position => {
       switch (true) {
         case position >= 50:
@@ -37,13 +35,13 @@ const createQualifyWeet = async (req, res) => {
           return 'Not found';
       }
     };
-    const findPosition = await userRepository.getById({ findUser });
+    const findPosition = await userRepository.getById(findUser);
     const comparePosition =
-      checkPosition(sumScore) === findPosition.position
+      checkPosition(sumScore) === findPosition.dataValues.position
         ? findPosition
-        : await userRepository.update({ findPosition });
-    logger.info(successfulMesages.CREATED);
-    return res.status(200).json({ weets: comparePosition });
+        : await userRepository.updatePosition(checkPosition(sumScore));
+    logger.info(successfulMesages.QUALIFIED);
+    return res.status(200).json({ position: comparePosition.dataValues.position });
   } catch (error) {
     logger.error(errorsMessages.FAIL);
     return res.status(500).json({ message: errorsMessages.FAIL, errors: error });

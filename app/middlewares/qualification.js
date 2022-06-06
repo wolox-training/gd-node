@@ -7,7 +7,7 @@ async function validateQualifyWeet(req, res, next) {
       notEmpty: true,
       errorMessage: errorsMessages.EMPTY,
       isIn: {
-        options: [['1', '-1']],
+        options: [[1, -1]],
         errorMessage: errorsMessages.INVALID_SCORE
       }
     }
