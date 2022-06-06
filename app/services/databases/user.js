@@ -36,10 +36,8 @@ const getOne = async userToFind => {
 
 const getById = async userToFind => {
   try {
-    const result = await User.findByPk({
-      where: {
-        id: userToFind
-      }
+    const result = await User.findByPk(userToFind, {
+      attributes: ['id', 'first_name', 'last_name', 'email', 'role_id', 'position']
     });
     return result;
   } catch (error) {
@@ -90,11 +88,25 @@ const update = async userToUpdate => {
   }
 };
 
+const updatePosition = async userToUpdate => {
+  try {
+    const result = await User.update(userToUpdate, {
+      where: {
+        position: userToUpdate
+      }
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   store,
   getOne,
   getById,
   getAll,
   update,
-  create
+  create,
+  updatePosition
 };
