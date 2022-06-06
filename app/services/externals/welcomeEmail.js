@@ -16,7 +16,7 @@ async function welcomeEmailUser(userParams) {
       from: 'Welcom New Joiners <welcomNewJoiners@wolox.com>',
       to: userParams.email,
       subject: 'Welcom to Wolox ✔',
-      text: 'Welcom New Joiner',
+      text: 'Welcom New Joiners',
       html: '<b>Welcom New Joiner</b>'
     });
     return info;
