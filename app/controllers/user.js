@@ -25,19 +25,20 @@ const signIn = async (req, res) => {
   try {
     const result = await repository.getOne(req.body);
     if (result) {
-      const userToken = createToken({
-        id: result.id,
-        first_name: result.first_name,
-        last_name: result.last_name,
-        email: result.email,
-        role_id: result.role_id
-      });
       const isSamePassword = bcrypt.compareSync(req.body.password, result.password);
-      const userFounded = result && isSamePassword === true ? userToken : null;
-      logger.info(successfulMesages.FOUNDED);
-      return res
-        .status(200)
-        .json({ message: successfulMesages.FOUNDED, email: result.email, token: userFounded });
+      if (isSamePassword) {
+        const userToken = createToken({
+          id: result.id,
+          first_name: result.first_name,
+          last_name: result.last_name,
+          email: result.email,
+          role_id: result.role_id
+        });
+        logger.info(successfulMesages.FOUNDED);
+        return res
+          .status(200)
+          .json({ message: successfulMesages.FOUNDED, email: result.email, token: userToken });
+      }
     }
     logger.error({ message: errorsMessages.WRONG_PARAMS });
     return res.status(400).json({ message: errorsMessages.WRONG_PARAMS });
