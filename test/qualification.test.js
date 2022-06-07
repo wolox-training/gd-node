@@ -11,7 +11,7 @@ describe('Testing Endpoint Qualification', () => {
       await jest.clearAllMocks();
     });
 
-    test.skip('Qualification create successfully', async () => {
+    test('Qualification create successfully', async () => {
       const scoreToTest = {
         score: 1
       };
