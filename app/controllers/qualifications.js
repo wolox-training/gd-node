@@ -1,6 +1,7 @@
 const { successfulMesages, errorsMessages } = require('../services/internals/constants');
 const repository = require('../services/databases/qualification');
 const userRepository = require('../services/databases/user');
+const weetRepository = require('../services/databases/weet');
 
 const logger = require('../logger');
 
@@ -35,11 +36,14 @@ const createQualifyWeet = async (req, res) => {
           return 'Not found';
       }
     };
-    const findPosition = await userRepository.getById(findUser);
+    const findWeetUser = await weetRepository.getOne(findWeet);
+    const findPosition = await userRepository.getById(findWeetUser.user_id);
+    const updateUserPosition = await userRepository.updatePosition(
+      findWeetUser.user_id,
+      checkPosition(sumScore)
+    );
     const comparePosition =
-      checkPosition(sumScore) === findPosition.dataValues.position
-        ? findPosition
-        : await userRepository.updatePosition(checkPosition(sumScore));
+      checkPosition(sumScore) === findPosition.dataValues.position ? findPosition : updateUserPosition;
     logger.info(successfulMesages.QUALIFIED);
     return res.status(200).json({ position: comparePosition.dataValues.position });
   } catch (error) {
