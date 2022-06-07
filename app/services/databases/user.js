@@ -88,13 +88,18 @@ const update = async userToUpdate => {
   }
 };
 
-const updatePosition = async userToUpdate => {
+const updatePosition = async (userId, userToUpdate) => {
   try {
-    const result = await User.update(userToUpdate, {
-      where: {
-        position: userToUpdate
+    const result = await User.update(
+      { position: userToUpdate },
+      {
+        where: {
+          id: userId
+        },
+        returning: true,
+        plain: true
       }
-    });
+    );
     return result;
   } catch (error) {
     return error;
