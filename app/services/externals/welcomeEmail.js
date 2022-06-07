@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-async function welcomeEmailUser(userParams) {
+const welcomeEmailUser = async userParams => {
   try {
     const testAccount = await nodemailer.createTestAccount();
     const transporter = nodemailer.createTransport({
@@ -23,7 +23,7 @@ async function welcomeEmailUser(userParams) {
   } catch (error) {
     return error;
   }
-}
+};
 
 module.exports = {
   welcomeEmailUser
