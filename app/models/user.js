@@ -36,6 +36,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 'standard'
+      },
+      position: {
+        type: DataTypes.ENUM,
+        allowNull: false,
+        values: ['developer', 'lead', 'tl', 'em', 'head', 'ceo'],
+        defaultValue: 'developer'
       }
     },
     {

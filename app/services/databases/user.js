@@ -28,18 +28,17 @@ const getOne = async userToFind => {
         email: userToFind.email
       }
     });
-    if (result) {
-      const dataUser = {
-        id: result.id,
-        first_name: result.first_name,
-        last_name: result.last_name,
-        email: result.email,
-        role_id: result.role_id
-      };
-      const isSamePassword = bcrypt.compareSync(userToFind.password, result.password);
-      const userFounded = result && isSamePassword === true ? dataUser : null;
-      return userFounded;
-    }
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getById = async userToFind => {
+  try {
+    const result = await User.findByPk(userToFind, {
+      attributes: ['id', 'first_name', 'last_name', 'email', 'role_id', 'position']
+    });
     return result;
   } catch (error) {
     return error;
@@ -89,10 +88,30 @@ const update = async userToUpdate => {
   }
 };
 
+const updatePosition = async (userId, userToUpdate) => {
+  try {
+    const result = await User.update(
+      { position: userToUpdate },
+      {
+        where: {
+          id: userId
+        },
+        returning: true,
+        plain: true
+      }
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   store,
   getOne,
+  getById,
   getAll,
   update,
-  create
+  create,
+  updatePosition
 };

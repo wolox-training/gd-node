@@ -11,24 +11,32 @@ module.exports = {
       },
       rating_user_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       },
       weet_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'weets',
+          key: 'id'
+        }
       },
       score: {
-        type: Sequelize.ENUM,
-        values: ['1', '-1']
+        type: Sequelize.INTEGER,
+        allowNull: false
       }
     });
   },
   async down(queryInterface) {
-    await queryInterface.sequelize.transaction(() => 
+    await queryInterface.sequelize.transaction(() =>
       Promise.all([
         queryInterface.dropTable('qualifications'),
         queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_qualifications_score";')
       ])
-    )
+    );
   }
 };

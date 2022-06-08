@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Qualification = sequelize.define(
-    'qualifications',
+    'Qualification',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -10,19 +10,25 @@ module.exports = (sequelize, DataTypes) => {
       },
       rating_user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       },
       weet_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Weet',
+          model: 'weets',
           key: 'id'
         }
       },
       score: {
-        type: DataTypes.ENUM,
-        values: ['1', '-1'],
+        type: DataTypes.INTEGER,
+        validate: {
+          isIn: [[1, -1]]
+        },
         allowNull: false
       }
     },

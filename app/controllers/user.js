@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const { successfulMesages, errorsMessages } = require('../services/internals/constants');
 const { createToken } = require('../services/internals/getToken');
 const repository = require('../services/databases/user');
@@ -29,8 +30,12 @@ const signIn = async (req, res) => {
         email: result.email,
         role_id: result.role_id
       });
+      const isSamePassword = bcrypt.compareSync(req.body.password, result.password);
+      const userFounded = result && isSamePassword === true ? userToken : null;
       logger.info(successfulMesages.FOUNDED);
-      return res.status(200).json({ message: successfulMesages.FOUNDED, email: result, token: userToken });
+      return res
+        .status(200)
+        .json({ message: successfulMesages.FOUNDED, email: result.email, token: userFounded });
     }
     logger.error({ message: errorsMessages.WRONG_PARAMS });
     return res.status(400).json({ message: errorsMessages.WRONG_PARAMS });
@@ -42,10 +47,10 @@ const signIn = async (req, res) => {
 
 const listAllUsers = async (req, res) => {
   try {
-    const offset = Number(req.query.offset) > 0 ? Number(req.query.offset) : 1;
+    const offset = Number(req.query.offset) > 0 ? Number(req.query.offset) : 0;
     const limit = Number(req.query.limit) > 0 ? Number(req.query.limit) : 3;
     const result = await repository.getAll({ offset, limit });
-    logger.info(successfulMesages.LIST_ALL);
+    logger.info(successfulMesages.LISTED);
     return res.status(200).json({ users: result });
   } catch (error) {
     logger.error(errorsMessages.FAIL);

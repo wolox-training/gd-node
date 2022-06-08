@@ -5,7 +5,7 @@ const store = async weetUser => {
   try {
     const myWeet = await giveMeJokes();
     const result = await Weet.create({
-      content: myWeet.data.joke,
+      content: myWeet,
       user_id: weetUser.decoded.id
     });
     return result;
@@ -23,7 +23,21 @@ const getAll = async ({ offset, limit }) => {
   }
 };
 
+const getOne = async weetId => {
+  try {
+    const result = await Weet.findOne({
+      where: {
+        id: weetId
+      }
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   store,
-  getAll
+  getAll,
+  getOne
 };

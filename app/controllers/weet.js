@@ -19,10 +19,10 @@ const createWeet = async (req, res) => {
 
 const listAllWeets = async (req, res) => {
   try {
-    const offset = Number(req.query.offset) > 0 ? Number(req.query.offset) : 1;
+    const offset = Number(req.query.offset) > 0 ? Number(req.query.offset) : 0;
     const limit = Number(req.query.limit) > 0 ? Number(req.query.limit) : 3;
     const result = await repository.getAll({ offset, limit });
-    logger.info(successfulMesages.LIST_ALL);
+    logger.info(successfulMesages.LISTED);
     return res.status(200).json({ weets: result });
   } catch (error) {
     logger.error(errorsMessages.FAIL);
