@@ -9,7 +9,14 @@ const signUp = async (req, res) => {
   try {
     const result = await repository.store(req.body);
     if (result[1]) {
-      welcomeEmailUser(result[0]);
+      const userParams = {
+        from: 'Welcom New Joiners <welcomNewJoiners@wolox.com>',
+        to: result[1].email,
+        subject: 'Welcom to Wolox ✔',
+        text: 'Welcom New Joiners',
+        html: '<b>Welcom New Joiner</b>'
+      };
+      welcomeEmailUser(userParams);
       logger.info(successfulMesages.CREATED);
       return res.status(200).json({ message: successfulMesages.CREATED, email: result[0].email });
     }
