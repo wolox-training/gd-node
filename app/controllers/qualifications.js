@@ -1,6 +1,7 @@
 const { successfulMesages, errorsMessages } = require('../services/internals/constants');
 const repository = require('../services/databases/qualification');
 const userRepository = require('../services/databases/user');
+const weetRepository = require('../services/databases/user');
 
 const logger = require('../logger');
 
