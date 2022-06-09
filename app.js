@@ -2,11 +2,13 @@ const { expressMiddleware, expressRequestIdMiddleware } = require('express-wolox
 const express = require('express');
 const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
+const { auth } = require('express-openid-connect');
 const config = require('./config');
 const routes = require('./app/routes');
 const errors = require('./app/middlewares/errors');
 const documentation = require('./documentation');
 const logger = require('./app/logger');
+const { configAuth } = require('./app/services/externals/auth0');
 
 const DEFAULT_BODY_SIZE_LIMIT = 1024 * 1024 * 10;
 const DEFAULT_PARAMETER_LIMIT = 10000;
@@ -23,6 +25,8 @@ const bodyParserUrlencodedConfig = () => ({
 });
 
 const app = express();
+
+app.use(auth(configAuth));
 
 // Client must send "Content-Type: application/json" header
 app.use(bodyParser.json(bodyParserJsonConfig()));
