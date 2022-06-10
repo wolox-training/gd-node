@@ -88,15 +88,22 @@ async function validateSignIn(req, res, next) {
 
 function isStandardUser(req, res, next) {
   const token = req.headers.authorization;
-  if (token) {
-    const decoded = jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
-    if (decoded.role_id === 'standard' || decoded.role_id === 'administrator') {
-      req.decoded = decoded;
+  try {
+    if (token) {
+      const decoded = jwt.decode(token, process.env.SECRET_KEY, false, 'HS256');
+      if (decoded.role_id === 'standard' || decoded.role_id === 'administrator') {
+        req.decoded = decoded;
+        return next();
+      }
+      return res.status(400).json(errorsMessages.NOT_AUTH);
+    }
+    return res.status(400).json(errorsMessages.NOT_TOKEN);
+  } catch (error) {
+    if (error.message === 'Token expired') {
       return next();
     }
-    return res.status(400).json(errorsMessages.NOT_AUTH);
+    return res.status(400).json({ error: error.message });
   }
-  return res.status(400).json(errorsMessages.NOT_TOKEN);
 }
 
 function isAdminUser(req, res, next) {
