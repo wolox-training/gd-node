@@ -9,7 +9,7 @@ describe('Testing Cron Job', () => {
     test('Create cron job successfully', () => {
       const spy = jest.spyOn(job, 'start');
       job.start();
-      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });
