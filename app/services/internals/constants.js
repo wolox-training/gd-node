@@ -3,7 +3,8 @@ const successfulMesages = {
   UPDATED: 'Updated Successfully',
   FOUNDED: 'Founded Successfully',
   LISTED: 'Listed Successfully',
-  QUALIFIED: 'Qualify Successfully'
+  QUALIFIED: 'Qualify Successfully',
+  DESTROY: 'Destroy Successfully'
 };
 
 const errorsMessages = {
