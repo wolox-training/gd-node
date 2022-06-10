@@ -1,7 +1,7 @@
 const { healthCheck } = require('./controllers/healthCheck');
 const { validateSignUp, validateSignIn, isStandardUser, isAdminUser } = require('./middlewares/user');
 const { validateQualifyWeet } = require('./middlewares/qualification');
-const { signUp, signIn, listAllUsers, signUpOrUpdateAdmin } = require('./controllers/user');
+const { signUp, signIn, listAllUsers, signUpOrUpdateAdmin, destroySession } = require('./controllers/user');
 const { createWeet, listAllWeets } = require('./controllers/weet');
 const { createQualifyWeet } = require('./controllers/qualifications');
 
@@ -10,6 +10,7 @@ exports.init = app => {
   app.get('/users', isStandardUser, listAllUsers);
   app.post('/users', validateSignUp, signUp);
   app.post('/users/sessions', validateSignIn, signIn);
+  app.post('/users/sessions/invalidate_all', isStandardUser, destroySession);
   app.post('/admin/users', isAdminUser, validateSignUp, signUpOrUpdateAdmin);
   app.get('/weets', isStandardUser, listAllWeets);
   app.post('/weets', isStandardUser, createWeet);
