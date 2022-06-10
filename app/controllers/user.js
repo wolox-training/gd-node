@@ -3,6 +3,7 @@ const { successfulMesages, errorsMessages } = require('../services/internals/con
 const { createToken } = require('../services/internals/getToken');
 const { welcomeEmailUser } = require('../services/externals/welcomeEmail');
 const repository = require('../services/databases/user');
+const sessionRepository = require('../services/databases/session');
 const logger = require('../logger');
 
 const signUp = async (req, res) => {
@@ -41,6 +42,11 @@ const signIn = async (req, res) => {
           email: result.email,
           role_id: result.role_id
         });
+        const session = {
+          token: userToken,
+          id: result.id
+        };
+        await sessionRepository.create(session);
         logger.info(successfulMesages.FOUNDED);
         return res
           .status(200)
@@ -84,9 +90,26 @@ const signUpOrUpdateAdmin = async (req, res) => {
   }
 };
 
+const destroySession = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    const result = await sessionRepository.destroy(token);
+    if (result) {
+      logger.info(successfulMesages.DESTROY);
+      return res.status(200).json({ message: successfulMesages.DESTROY });
+    }
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL });
+  } catch (error) {
+    logger.error(errorsMessages.FAIL);
+    return res.status(500).json({ message: errorsMessages.FAIL, errors: error });
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
   listAllUsers,
-  signUpOrUpdateAdmin
+  signUpOrUpdateAdmin,
+  destroySession
 };
