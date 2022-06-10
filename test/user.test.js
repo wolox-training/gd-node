@@ -47,18 +47,19 @@ describe('Testing Endpoint User', () => {
       await usersFactory.cleanUp();
     });
     test('User login successfully', async () => {
+      await jest.setTimeout(30000);
       await request(app)
         .post('/users/sessions')
         .send(userSignInTest)
         .then(response => {
-          expect(response.body.email.email).toEqual('tom.lee@wolox.com');
+          expect(response.body.email).toEqual('tom.lee@wolox.com');
           expect(response.statusCode).toBe(200);
         });
     });
     test('User login fail wrong password', async () => {
       const userToTest = {
         email: 'tom.lee@wolox.com',
-        password: '12345rt89'
+        password: '123456789'
       };
       await request(app)
         .post('/users/sessions')
