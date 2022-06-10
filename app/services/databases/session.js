@@ -15,13 +15,11 @@ const create = async sessionToCreate => {
 
 const destroy = async sessionToDelete => {
   try {
-    console.log(sessionToDelete, '999');
     const result = await Session.destroy({
       where: {
         token: sessionToDelete
       }
     });
-    console.log(result, '888');
     return result;
   } catch (error) {
     return error;
