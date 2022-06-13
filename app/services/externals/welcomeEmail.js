@@ -13,11 +13,11 @@ const welcomeEmailUser = async userParams => {
       }
     });
     const info = await transporter.sendMail({
-      from: 'Welcom New Joiners <welcomNewJoiners@wolox.com>',
-      to: userParams.email,
-      subject: 'Welcom to Wolox ✔',
-      text: 'Welcom New Joiners',
-      html: '<b>Welcom New Joiner</b>'
+      from: userParams.from,
+      to: userParams.to,
+      subject: userParams.subject,
+      text: userParams.text,
+      html: userParams.html
     });
     return info;
   } catch (error) {
