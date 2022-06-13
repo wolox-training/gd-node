@@ -7,7 +7,7 @@ describe('Testing Send Email', () => {
     });
 
     test('Welcome email create successfully', async () => {
-      await jest.setTimeout(60000);
+      await jest.setTimeout(80000);
       const userParams = {
         from: 'Welcom New Joiners <welcomNewJoiners@wolox.com>',
         to: 'john.tow@wolox.com',
