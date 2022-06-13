@@ -14,9 +14,7 @@ describe('Testing Endpoint User', () => {
     beforeEach(async () => {
       await jest.clearAllMocks();
     });
-    afterEach(async () => {
-      await usersFactory.cleanUp();
-    });
+
     test('User creation successfully', async () => {
       const result = await repository.store(userSignUpTest);
       expect(result).toBeInstanceOf(Object);
@@ -43,9 +41,7 @@ describe('Testing Endpoint User', () => {
       await jest.clearAllMocks();
       await usersFactory.create();
     });
-    afterEach(async () => {
-      await usersFactory.cleanUp();
-    });
+
     test('User login successfully', async () => {
       await jest.setTimeout(30000);
       await request(app)
