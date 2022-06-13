@@ -54,6 +54,11 @@ const tokenAdminToTest = {
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6ImpvaG4iLCJsYXN0X25hbWUiOiJkb3ciLCJlbWFpbCI6ImpvaG4uZG93QHdvbG94LmNvbSIsInJvbGVfaWQiOiJhZG1pbmlzdHJhdG9yIn0.IToIJAMLYgL1B2awH_-GHBCKUX1i5zSV2wfs2bQ2Y6w'
 };
 
+const sessionToTest = {
+  authorization:
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6InRvbSIsImxhc3RfbmFtZSI6ImxlZSIsImVtYWlsIjoidG9tLmxlZUB3b2xveC5jb20iLCJyb2xlX2lkIjoic3RhbmRhcmQiLCJpYXQiOjE2NTQ4ODQxMzUsImV4cCI6MTY1NDg4NDE5NX0.JpTaW6KLR6Yha7FwXTh1C47girIepO1JR_zYdirYW_g'
+};
+
 module.exports = {
   userToTest,
   adminToTest,
@@ -62,5 +67,6 @@ module.exports = {
   userSignInTest,
   userSignUpAdminTest,
   tokenUserToTest,
-  tokenAdminToTest
+  tokenAdminToTest,
+  sessionToTest
 };

@@ -7,10 +7,15 @@ describe('Testing Send Email', () => {
     });
 
     test('Welcome email create successfully', async () => {
-      const paramsToTest = {
-        email: 'john.tow@wolox.com'
+      await jest.setTimeout(80000);
+      const userParams = {
+        from: 'Welcom New Joiners <welcomNewJoiners@wolox.com>',
+        to: 'john.tow@wolox.com',
+        subject: 'Welcom to Wolox ✔',
+        text: 'Welcom New Joiners',
+        html: '<b>Welcom New Joiner</b>'
       };
-      const data = await welcomeEmailUser(paramsToTest);
+      const data = await welcomeEmailUser(userParams);
       expect(data).toBeInstanceOf(Object);
       expect(data.envelope).toStrictEqual({ from: 'welcomNewJoiners@wolox.com', to: ['john.tow@wolox.com'] });
     });
