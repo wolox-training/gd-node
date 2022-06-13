@@ -5,14 +5,13 @@ const { validateQualifyWeet } = require('./middlewares/qualification');
 const { signUp, signIn, listAllUsers, signUpOrUpdateAdmin, destroySession } = require('./controllers/user');
 const { createWeet, listAllWeets } = require('./controllers/weet');
 const { createQualifyWeet } = require('./controllers/qualifications');
-// const { checkJwt, checkScopes } = require('./services/externals/auth0');
+const { checkJwt } = require('./services/externals/auth0');
 
 exports.init = app => {
   app.get('/health', healthCheck);
-  app.get('/users', isStandardUser, listAllUsers);
+  app.get('/users', checkJwt, listAllUsers);
   app.post('/users', validateSignUp, signUp);
   app.get('/users/login', (req, res) => {
-    console.log(req, '999');
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
   });
   app.get('/profile', requiresAuth(), (req, res) => {
