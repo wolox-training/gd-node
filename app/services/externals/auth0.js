@@ -4,14 +4,14 @@ const configAuth = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.SECRET_AUTH,
-  baseURL: 'http://localhost:8081',
-  clientID: 'O8ywnh6QSK8oQPLjTy2frOYmqGLNPJR3',
-  issuerBaseURL: 'https://dev-azjg8-fx.us.auth0.com'
+  baseURL: process.env.AUTH_BASE_URL,
+  clientID: process.env.AUTH_CLIENT_ID,
+  issuerBaseURL: process.env.AUTH_ISSUE_BASE_URL
 };
 
 const checkJwt = auth({
-  audience: 'https://dev-azjg8-fx.us.auth0.com/api/v2/',
-  issuerBaseURL: 'https://dev-azjg8-fx.us.auth0.com'
+  audience: process.env.AUTH_AUDIENCE,
+  issuerBaseURL: process.env.AUTH_ISSUE_BASE_URL
 });
 
 const checkScopes = requiredScopes('read:messages');
