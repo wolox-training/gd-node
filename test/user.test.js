@@ -83,7 +83,7 @@ describe('Testing Endpoint User', () => {
     test('list all user successfully', async () => {
       const tokenToTest = {
         authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvdyAxMSIsImVtYWlsIjoiam9obi5kb3cuMTFAd29sb3guY29tIiwicm9sZV9pZCI6InN0YW5kYXJkIn0.5r0QEHhq8G0E2_RTqWoAdrtPcaw3jWYxSokvWGVSxa8'
+          'bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Imw1UE83RzM0bWdaS1p5QXFzeDJLRiJ9.eyJpc3MiOiJodHRwczovL2Rldi1hempnOC1meC51cy5hdXRoMC5jb20vIiwic3ViIjoiMlExeko4ZnoxNUxkM3hNSEhVeG5ldkVoNHVqQTFRdGlAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZGV2LWF6amc4LWZ4LnVzLmF1dGgwLmNvbS9hcGkvdjIvIiwiaWF0IjoxNjU1MTQxODk0LCJleHAiOjE2NTUyMjgyOTQsImF6cCI6IjJRMXpKOGZ6MTVMZDN4TUhIVXhuZXZFaDR1akExUXRpIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.xfPwL9XPJla_N9DhmwTiUcxbhZbhgvqn3QB0Copk0kTbnpai5QyVg0IYM6KBCddYNe8IY-HEJCWdcKNReMxjtzEVj1_AY_empIUrCMhWrPH5FDfrPNi64r8Wx7Fuw8_M-P4bVLqcG8kQ_n9y3JbDQ0VoRX45dnY4NddZlJvbzD1zL5x_bJdrDiNEfXcJQz_bRgzV9DYXy4iLSK-sFkG13zH8I9mfTRScERMLLxxEw3utbfM6JS19tjx6qnD6tVLI6hiLIeQ9rUZn6K4p6sH_dm7ZaV8ZD8GFsQ-mncgKqpCllnMMe_0j7grSdUBuB7M9lYqArXij9f-K1SrHbYXdwA'
       };
       await request(app)
         .get('/users')
@@ -94,15 +94,11 @@ describe('Testing Endpoint User', () => {
         });
     });
     test('list all user fail without token', async () => {
-      const tokenToTest = {
-        authorization: ''
-      };
       await request(app)
         .get('/users')
-        .set(tokenToTest)
         .then(response => {
-          expect(response.statusCode).toBe(400);
-          expect(response.text).toEqual('"Token was not supplied"');
+          expect(response.statusCode).toBe(500);
+          expect(response.error.message).toEqual('cannot GET /users (500)');
         });
     });
   });
